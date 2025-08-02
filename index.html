@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="IAR Tracker">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <title>📊 IAR Platform - Piyasa Takibi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 IAR Platform Piyasa Takibi</h1>
+            <p>Altın, gümüş ve döviz kurlarının canlı takibi</p>
+        </div>
+
+        <div class="status-bar">
+            <div class="last-update">
+                Son Güncelleme: <span id="lastUpdate">--:--</span>
+            </div>
+            <div class="connection-status">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="connectionText">Demo Mod - GitHub Pages</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid" id="all-cards-grid">
+                <div class="card" draggable="true" data-id="usd">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">USD/TRY</span>
+                        </div>
+                        <div class="card-icon usd-icon">💵</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="usd-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="usd-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="usd-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="usd-alarm-input" step="0.01">
+                            <button class="alarm-btn" onclick="toggleAlarm('usd')" id="usd-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="usd-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" draggable="true" data-id="eur">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">EUR/TRY</span>
+                        </div>
+                        <div class="card-icon eur-icon">💶</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="eur-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="eur-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="eur-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="eur-alarm-input" step="0.01">
+                            <button class="alarm-btn" onclick="toggleAlarm('eur')" id="eur-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="eur-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" draggable="true" data-id="gold">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">Altın ONS/USD</span>
+                        </div>
+                        <div class="card-icon gold-icon">🏆</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="gold-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="gold-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="gold-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="gold-alarm-input" step="0.01">
+                            <button class="alarm-btn" onclick="toggleAlarm('gold')" id="gold-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="gold-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" draggable="true" data-id="silver">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">Gümüş KG/TRY</span>
+                        </div>
+                        <div class="card-icon silver-icon">🥈</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="silver-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="silver-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="silver-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="silver-alarm-input" step="1">
+                            <button class="alarm-btn" onclick="toggleAlarm('silver')" id="silver-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="silver-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" draggable="true" data-id="quarter">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">Eski Çeyrek</span>
+                        </div>
+                        <div class="card-icon jewelry-icon">💰</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="quarter-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="quarter-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="quarter-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="quarter-alarm-input" step="1">
+                            <button class="alarm-btn" onclick="toggleAlarm('quarter')" id="quarter-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="quarter-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" draggable="true" data-id="ata">
+                    <div class="card-header">
+                        <div class="drag-handle">
+                            <div class="drag-icon">⋮⋮</div>
+                            <span class="card-title">Eski Ata</span>
+                        </div>
+                        <div class="card-icon jewelry-icon">🪙</div>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-box">
+                            <div class="price-label">Alış</div>
+                            <div class="price-value buy-price" id="ata-buy">--</div>
+                        </div>
+                        <div class="price-box">
+                            <div class="price-label">Satış</div>
+                            <div class="price-value sell-price" id="ata-sell">--</div>
+                        </div>
+                    </div>
+                    <div class="change-indicator change-neutral" id="ata-change">
+                        <span>📈 Değişim: --</span>
+                    </div>
+                    <div class="alarm-section">
+                        <div class="alarm-controls">
+                            <input type="number" class="alarm-input" placeholder="Hedef fiyat" id="ata-alarm-input" step="1">
+                            <button class="alarm-btn" onclick="toggleAlarm('ata')" id="ata-alarm-btn">🔔 Alarm</button>
+                        </div>
+                        <div class="alarm-status" id="ata-alarm-status">
+                            <span>⏰ Alarm kapalı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PWA Install Prompt -->
+        <div class="install-prompt" id="installPrompt">
+            <div>
+                <strong>📱 Uygulamayı Yükle</strong><br>
+                <small>Ana ekranına ekle, hızlı erişim</small>
+            </div>
+            <button class="install-btn" onclick="installPWA()">Yükle</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
